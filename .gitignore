@@ -11,3 +11,5 @@ jreleaser_public.asc
 public.key
 
 *.asc
+*.gpg
+*.keys

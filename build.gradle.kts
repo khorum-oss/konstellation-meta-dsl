@@ -61,13 +61,6 @@ fun Project.sharedRepositories() {
     }
 }
 
-tasks.register("koverMergedReport") {
-    group = "verification"
-    description = "Generates merged coverage report for all modules"
-
-    dependsOn(subprojects.map { it.tasks.named("koverXmlReport") })
-}
-
 val secretPropsFile = project.rootProject.file("secret.properties") // update to your secret file under `buildSrc`
 val ext = project.extensions.extraProperties
 if (secretPropsFile.exists()) {
