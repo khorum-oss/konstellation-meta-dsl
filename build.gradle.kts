@@ -14,15 +14,16 @@ plugins {
     id("com.google.devtools.ksp") version "2.1.20-1.0.32"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("org.jetbrains.kotlinx.kover") version "0.9.1"
-    id("org.khorum.oss.plugins.open.pipeline") version "1.0.0"
-    id("org.khorum.oss.plugins.open.secrets") version "1.0.0"
+    id("org.khorum.oss.plugins.open.pipeline") version "1.0.2"
+    id("org.khorum.oss.plugins.open.secrets") version "1.0.2"
+    signing
 
-    id("org.khorum.oss.plugins.open.publishing.maven-generated-artifacts") version "1.0.3"
-    id("org.khorum.oss.plugins.open.publishing.digital-ocean-spaces") version "1.0.3"
+    id("org.khorum.oss.plugins.open.publishing.maven-generated-artifacts") version "1.0.4"
+    id("org.khorum.oss.plugins.open.publishing.digital-ocean-spaces") version "1.0.4"
 }
 
 group = "org.khorum.oss.konstellation"
-version = "1.0.0"
+version = file("VERSION").readText().trim()
 
 java {
     toolchain {
@@ -89,11 +90,24 @@ tasks.named<DokkaTask>("dokkaJavadoc") {
     }
 }
 
+signing {
+    useInMemoryPgpKeys(
+        providers.environmentVariable("GPG_SIGNING_KEY").orNull,
+        providers.environmentVariable("GPG_SIGNING_PASSWORD").orNull
+    )
+    sign(publishing.publications)
+}
+
+tasks.withType<PublishToMavenRepository>().configureEach {
+    dependsOn(tasks.withType<Sign>())
+}
+
 digitalOceanSpacesPublishing {
     bucket = "open-reliquary"
     accessKey = project.getPropertyOrEnv("spaces.key", "DO_SPACES_API_KEY")
     secretKey = project.getPropertyOrEnv("spaces.secret", "DO_SPACES_SECRET")
     publishedVersion = version.toString()
+    signingRequired = true
 }
 
 mavenGeneratedArtifacts {

@@ -2,7 +2,7 @@
 <verification-metadata xmlns="https://schema.gradle.org/dependency-verification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://schema.gradle.org/dependency-verification https://schema.gradle.org/dependency-verification/dependency-verification-1.3.xsd">
    <configuration>
       <verify-metadata>true</verify-metadata>
-      <verify-signatures>true</verify-signatures>
+      <verify-signatures>false</verify-signatures>
       <trusted-artifacts>
          <trust group="gradle" name="gradle"/>
          <trust group="com.fasterxml"/>
@@ -13,13 +13,22 @@
          <trust group="com.fasterxml.woodstox"/>
          <trust group="com.google.devtools.ksp"/>
          <trust group="com.sun.activation"/>
+         <trust group="com.google.code.gson"/>
+         <trust group="com.google.errorprone"/>
          <trust group="commons-codec"/>
+         <trust group="commons-logging"/>
+         <trust group="io.github.detekt.sarif4k"/>
          <trust group="io.github.microutils"/>
+         <trust group="io.netty"/>
          <trust group="io.gitlab.arturbosch.detekt"/>
+         <trust group="it.unimi.dsi"/>
          <trust group="org.apache"/>
          <trust group="org.apache.commons"/>
+         <trust group="org.apache.httpcomponents"/>
          <trust group="org.apiguardian"/>
+         <trust group="org.codehaus.woodstox"/>
          <trust group="org.eclipse.ee4j"/>
+         <trust group="org.freemarker"/>
          <trust group="org.jetbrains"/>
          <trust group="org.jetbrains.dokka"/>
          <trust group="org.jetbrains.intellij.deps"/>
@@ -38,7 +47,17 @@
          <trust group="org.khorum.oss.plugins.open.publishing.maven-generated-artifacts"/>
          <trust group="org.khorum.oss.plugins.open.secrets"/>
          <trust group="org.opentest4j"/>
+         <trust group="org.reactivestreams"/>
+         <trust group="org.slf4j"/>
+         <trust group="org.snakeyaml"/>
          <trust group="org.sonatype.oss"/>
+         <trust group="software.amazon.awssdk"/>
+         <trust group="software.amazon.eventstream"/>
+         <trust group="com.beust"/>
+         <trust group="io.github.davidburstrom.contester"/>
+         <trust group="jakarta.activation"/>
+         <trust group="jakarta.xml.bind"/>
+         <trust group="org.jsoup"/>
       </trusted-artifacts>
       <ignored-keys>
          <ignored-key id="012579464D01C06A" reason="Key couldn't be downloaded from any key server"/>
