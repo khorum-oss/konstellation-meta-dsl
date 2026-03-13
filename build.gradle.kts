@@ -14,12 +14,12 @@ plugins {
     id("com.google.devtools.ksp") version "2.1.20-1.0.32"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("org.jetbrains.kotlinx.kover") version "0.9.1"
-    id("org.khorum.oss.plugins.open.pipeline") version "1.0.2"
-    id("org.khorum.oss.plugins.open.secrets") version "1.0.2"
+    id("org.khorum.oss.plugins.open.pipeline") version "1.0.3"
+    id("org.khorum.oss.plugins.open.secrets") version "1.0.3"
     signing
 
-    id("org.khorum.oss.plugins.open.publishing.maven-generated-artifacts") version "1.0.4"
-    id("org.khorum.oss.plugins.open.publishing.digital-ocean-spaces") version "1.0.4"
+    id("org.khorum.oss.plugins.open.publishing.maven-generated-artifacts") version "1.0.5"
+    id("org.khorum.oss.plugins.open.publishing.digital-ocean-spaces") version "1.0.5"
 }
 
 group = "org.khorum.oss.konstellation"
