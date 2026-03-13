@@ -3,6 +3,11 @@
    <configuration>
       <verify-metadata>true</verify-metadata>
       <verify-signatures>true</verify-signatures>
+      <key-servers>
+         <key-server uri="hkps://keys.openpgp.org"/>
+         <key-server uri="hkps://keyserver.ubuntu.com"/>
+         <key-server uri="hkps://pgp.mit.edu"/>
+      </key-servers>
       <ignored-keys>
          <ignored-key id="012579464D01C06A" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="0C0A9468268C79AE" reason="Key couldn't be downloaded from any key server"/>
