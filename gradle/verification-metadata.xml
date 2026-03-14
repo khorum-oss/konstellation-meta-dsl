@@ -40,6 +40,7 @@
          <trust group="com.fasterxml.woodstox" name="woodstox-core"/>
          <trust group="org.jspecify" name="jspecify"/>
          <trust group="org.apiguardian" name="apiguardian-api"/>
+         <trust group="com.soywiz.korlibs.korte" name="korte-jvm"/>
       </trusted-artifacts>
       <ignored-keys>
          <ignored-key id="85911F425EC61B51" reason="Key couldn't be downloaded from any key server"/>

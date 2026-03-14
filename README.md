@@ -1,5 +1,10 @@
 # Konstellation Meta DSL
 
+[![CI](https://github.com/khorum-oss/konstellation-metal-dsl/actions/workflows/pr-main.yml/badge.svg)](https://github.com/khorum-oss/konstellation-metal-dsl/actions/workflows/pr-main.yml)
+[![codecov](https://codecov.io/github/khorum-oss/konstellation-meta-dsl/graph/badge.svg?token=77u8b5h0WV)](https://codecov.io/github/khorum-oss/konstellation-meta-dsl)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=khorum-oss_konstellation-meta-dsl&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=khorum-oss_konstellation-meta-dsl)
+[![CodeQL](https://github.com/khorum-oss/konstellation-metal-dsl/actions/workflows/code-ql.yml/badge.svg)](https://github.com/khorum-oss/konstellation-metal-dsl/actions/workflows/code-ql.yml)
+
 A Kotlin Symbol Processing (KSP) library for automatically generating type-safe Kotlin DSLs from annotated data classes.
 
 ## Installation

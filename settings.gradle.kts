@@ -1,4 +1,4 @@
-rootProject.name = "meta-dsl"
+rootProject.name = "konstellation-meta-dsl"
 
 pluginManagement {
     repositories {
