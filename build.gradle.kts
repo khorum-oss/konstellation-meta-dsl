@@ -34,14 +34,17 @@ java {
 
 sharedRepositories()
 
+val loggingVersion = "4.0.0-beta-2"
+val jupiterApiVersion = "6.0.0-M1"
+
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    implementation("io.github.microutils:kotlin-logging:4.0.0-beta-2")
+    implementation("io.github.microutils:kotlin-logging:$loggingVersion")
 
     testImplementation(kotlin("test")) // Kotlin’s own assert functions, optional but handy
-    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.0-M1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$jupiterApiVersion")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

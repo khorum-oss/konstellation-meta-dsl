@@ -1,4 +1,4 @@
-
+rootProject.name = "meta-dsl"
 
 pluginManagement {
     repositories {
