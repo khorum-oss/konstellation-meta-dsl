@@ -14,15 +14,17 @@ plugins {
     id("com.google.devtools.ksp") version "2.1.20-1.0.32"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("org.jetbrains.kotlinx.kover") version "0.9.1"
-    id("org.khorum.oss.plugins.open.pipeline") version "1.0.0"
-    id("org.khorum.oss.plugins.open.secrets") version "1.0.0"
+    id("org.sonarqube") version "7.0.0.6105"
+    id("org.khorum.oss.plugins.open.pipeline") version "1.0.3"
+    id("org.khorum.oss.plugins.open.secrets") version "1.0.3"
+    signing
 
-    id("org.khorum.oss.plugins.open.publishing.maven-generated-artifacts") version "1.0.3"
-    id("org.khorum.oss.plugins.open.publishing.digital-ocean-spaces") version "1.0.3"
+    id("org.khorum.oss.plugins.open.publishing.maven-generated-artifacts") version "1.0.5"
+    id("org.khorum.oss.plugins.open.publishing.digital-ocean-spaces") version "1.0.5"
 }
 
 group = "org.khorum.oss.konstellation"
-version = "1.0.0"
+version = file("VERSION").readText().trim()
 
 java {
     toolchain {
@@ -32,14 +34,17 @@ java {
 
 sharedRepositories()
 
+val loggingVersion = "4.0.0-beta-2"
+val jupiterApiVersion = "6.0.0-M1"
+
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    implementation("io.github.microutils:kotlin-logging:4.0.0-beta-2")
+    implementation("io.github.microutils:kotlin-logging:$loggingVersion")
 
     testImplementation(kotlin("test")) // Kotlin’s own assert functions, optional but handy
-    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.0-M1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$jupiterApiVersion")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -59,13 +64,6 @@ fun Project.sharedRepositories() {
         mavenCentral()
         maven { url = uri("https://www.jetbrains.com/intellij-repository/releases") }
     }
-}
-
-tasks.register("koverMergedReport") {
-    group = "verification"
-    description = "Generates merged coverage report for all modules"
-
-    dependsOn(subprojects.map { it.tasks.named("koverXmlReport") })
 }
 
 val secretPropsFile = project.rootProject.file("secret.properties") // update to your secret file under `buildSrc`
@@ -96,11 +94,24 @@ tasks.named<DokkaTask>("dokkaJavadoc") {
     }
 }
 
+signing {
+    useInMemoryPgpKeys(
+        providers.environmentVariable("GPG_SIGNING_KEY").orNull,
+        providers.environmentVariable("GPG_SIGNING_PASSWORD").orNull
+    )
+    sign(publishing.publications)
+}
+
+tasks.withType<PublishToMavenRepository>().configureEach {
+    dependsOn(tasks.withType<Sign>())
+}
+
 digitalOceanSpacesPublishing {
     bucket = "open-reliquary"
     accessKey = project.getPropertyOrEnv("spaces.key", "DO_SPACES_API_KEY")
     secretKey = project.getPropertyOrEnv("spaces.secret", "DO_SPACES_SECRET")
     publishedVersion = version.toString()
+    signingRequired = true
 }
 
 mavenGeneratedArtifacts {
@@ -129,5 +140,15 @@ mavenGeneratedArtifacts {
 
     scm {
         connection = "https://github.com/violabs/konstellation.git"
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "khorum-oss_konstellation-meta-dsl")
+        property("sonar.organization", "khorum-oss")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.coverage.jacoco.xmlReportPaths",
+            "${layout.buildDirectory.get()}/reports/kover/report.xml")
     }
 }
