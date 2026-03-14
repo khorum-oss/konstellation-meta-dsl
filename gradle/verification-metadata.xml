@@ -38,6 +38,8 @@
          <trust group="org.junit.platform" name="junit-platform-commons"/>
          <trust group="org.opentest4j" name="opentest4j"/>
          <trust group="com.fasterxml.woodstox" name="woodstox-core"/>
+         <trust group="org.jspecify" name="jspecify"/>
+         <trust group="org.apiguardian" name="apiguardian-api"/>
       </trusted-artifacts>
       <ignored-keys>
          <ignored-key id="85911F425EC61B51" reason="Key couldn't be downloaded from any key server"/>
