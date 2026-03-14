@@ -5,6 +5,29 @@
       <verify-signatures>true</verify-signatures>
       <trusted-artifacts>
          <trust group="org.jetbrains.intellij.deps"/>
+         <trust group="org.apache" name="apache"/>
+         <trust group="org.apache.commons" name="commons-compress"/>
+         <trust group="org.apache.commons" name="commons-lang3"/>
+         <trust group="org.apache.commons" name="commons-parent"/>
+         <trust group="commons-codec" name="commons-codec"/>
+         <trust group="commons-io" name="commons-io"/>
+         <trust group="com.squareup.okhttp3" name="logging-interceptor"/>
+         <trust group="com.squareup.okhttp3" name="okhttp"/>
+         <trust group="com.squareup.okhttp3" name="okhttp-urlconnection"/>
+         <trust group="com.squareup.okio" name="okio"/>
+         <trust group="com.squareup.okio" name="okio-jvm"/>
+         <trust group="org.sonarsource.parent" name="parent"/>
+         <trust group="org.sonarsource.scanner.gradle" name="sonarqube-gradle-plugin"/>
+         <trust group="org.sonarsource.scanner.lib" name="sonar-scanner-java-library"/>
+         <trust group="org.sonarsource.scanner.lib" name="sonar-scanner-java-library-batch-interface"/>
+         <trust group="org.sonarsource.scanner.lib" name="sonar-scanner-java-library-parent"/>
+         <trust group="org.slf4j" name="slf4j-api"/>
+         <trust group="org.slf4j" name="slf4j-bom"/>
+         <trust group="org.slf4j" name="slf4j-parent"/>
+         <trust group="io.github.hakky54" name="sslcontext-kickstart"/>
+         <trust group="io.github.hakky54" name="sslcontext-kickstart-bom"/>
+         <trust group="io.github.hakky54" name="sslcontext-kickstart-parent"/>
+         <trust group="org.bouncycastle" name="bcprov-jdk18on"/>
       </trusted-artifacts>
       <ignored-keys>
          <ignored-key id="85911F425EC61B51" reason="Key couldn't be downloaded from any key server"/>
