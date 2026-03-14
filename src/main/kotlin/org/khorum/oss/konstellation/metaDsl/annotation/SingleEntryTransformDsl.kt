@@ -1,4 +1,4 @@
-package io.violabs.konstellation.metaDsl.annotation
+package org.khorum.oss.konstellation.metaDsl.annotation
 
 import kotlin.reflect.KClass
 

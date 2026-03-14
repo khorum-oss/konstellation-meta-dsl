@@ -52,6 +52,10 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+detekt {
+    source.setFrom("src/main/kotlin")
+}
+
 kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict")

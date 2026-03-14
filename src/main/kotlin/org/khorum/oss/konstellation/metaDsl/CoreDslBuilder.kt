@@ -1,4 +1,4 @@
-package io.violabs.konstellation.metaDsl
+package org.khorum.oss.konstellation.metaDsl
 
 /**
  * Marker interface for DSL builders in the core DSL.
