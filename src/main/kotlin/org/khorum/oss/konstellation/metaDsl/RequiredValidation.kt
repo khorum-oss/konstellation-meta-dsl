@@ -1,4 +1,4 @@
-package io.violabs.konstellation.metaDsl
+package org.khorum.oss.konstellation.metaDsl
 
 import kotlin.reflect.KFunction
 import kotlin.reflect.KProperty

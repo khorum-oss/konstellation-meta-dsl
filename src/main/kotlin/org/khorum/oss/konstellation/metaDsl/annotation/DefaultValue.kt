@@ -1,4 +1,4 @@
-package io.violabs.konstellation.metaDsl.annotation
+package org.khorum.oss.konstellation.metaDsl.annotation
 
 /**
  * Annotation to specify a default value for a property in the generated DSL.

@@ -1,4 +1,4 @@
-package io.violabs.konstellation.metaDsl.annotation
+package org.khorum.oss.konstellation.metaDsl.annotation
 
 /**
  * Enum representing the types of map groups.

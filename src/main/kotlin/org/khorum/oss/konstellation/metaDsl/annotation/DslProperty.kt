@@ -1,4 +1,4 @@
-package io.violabs.konstellation.metaDsl.annotation
+package org.khorum.oss.konstellation.metaDsl.annotation
 
 /**
  * Annotation to configure DSL property generation for list and map properties.
