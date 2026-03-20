@@ -6,8 +6,11 @@ package org.khorum.oss.konstellation.metaDsl.annotation
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 annotation class GeneratedDsl(
+    @Deprecated("Use ListDsl instead")
     val withListGroup: Boolean = false,
+    @Deprecated("Use MapDsl instead")
     val withMapGroup: String = MapGroupTypes.NONE,
+    @Deprecated("Use RootDsl instead")
     val isRoot: Boolean = false,
     val debug: Boolean = false
 ) {
