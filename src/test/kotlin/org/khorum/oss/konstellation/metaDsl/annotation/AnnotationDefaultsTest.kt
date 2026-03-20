@@ -79,7 +79,10 @@ class AnnotationDefaultsTest {
     inner class GeneratedDslAnnotation {
         @Test
         fun `has expected parameters`() {
-            assertParameterNames(GeneratedDsl::class, listOf("withListGroup", "withMapGroup", "isRoot", "debug"))
+            assertParameterNames(
+                GeneratedDsl::class,
+                listOf("withListGroup", "withMapGroup", "isRoot", "name", "debug")
+            )
         }
 
         @Test
@@ -95,6 +98,11 @@ class AnnotationDefaultsTest {
         @Test
         fun `isRoot has a default`() {
             assertDefault(GeneratedDsl::class, "isRoot", false)
+        }
+
+        @Test
+        fun `name has a default`() {
+            assertDefault(GeneratedDsl::class, "name", "")
         }
 
         @Test
