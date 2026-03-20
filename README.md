@@ -79,12 +79,13 @@ val config = databaseConfig {
 
 Marks a data class for DSL generation.
 
-| Parameter       | Type      | Default  | Description                                                             |
-|-----------------|-----------|----------|-------------------------------------------------------------------------|
-| `withListGroup` | `Boolean` | `false`  | Enable list group generation - DEPRECATED use ListDsl                   |
-| `withMapGroup`  | `String`  | `"NONE"` | Map group type: `NONE`, `SINGLE`, `LIST`, `ALL` - DEPRECATED use MapDsl |
-| `isRoot`        | `Boolean` | `false`  | Mark as root DSL entry point - DEPRECATED use RootDsl                   |
-| `debug`         | `Boolean` | `false`  | Enable debug logging during KSP processing                              |
+| Parameter       | Type      | Default      | Description                                                             |
+|-----------------|-----------|--------------|-------------------------------------------------------------------------|
+| `withListGroup` | `Boolean` | `false`      | Enable list group generation - DEPRECATED use ListDsl                   |
+| `withMapGroup`  | `String`  | `"NONE"`     | Map group type: `NONE`, `SINGLE`, `LIST`, `ALL` - DEPRECATED use MapDsl |
+| `isRoot`        | `Boolean` | `false`      | Mark as root DSL entry point - DEPRECATED use RootDsl                   |
+| `name`          | `String`  | `class name` | A way to override the class name                                        |
+| `debug`         | `Boolean` | `false`      | Enable debug logging during KSP processing                              |
 
 #### `@DslDescription`
 
