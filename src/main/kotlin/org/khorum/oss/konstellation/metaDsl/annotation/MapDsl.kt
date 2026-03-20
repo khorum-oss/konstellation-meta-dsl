@@ -1,43 +1,45 @@
 package org.khorum.oss.konstellation.metaDsl.annotation
 
 /**
- * Annotation to configure DSL property generation for list and map properties.
+ * Configures constraints for Map properties in the generated DSL.
  *
- * By default, list and map properties will generate both vararg and provider functions:
- * - Vararg: `names(vararg name: String)` - allows passing multiple items directly
- * - Provider: `names(provider: () -> List<String>)` - allows passing a lambda that returns the collection
- *
- * Use this annotation to disable either or both of these generated functions.
+ * Applied to `Map` properties alongside or instead of [PublicDslProperty] to control
+ * build-time validation of the collected entries.
  *
  * Example usage:
  * ```kotlin
  * @GeneratedDsl
- * data class Person(
- *     val name: String,
+ * data class Config(
+ *     @MapConfig(minSize = 1, maxSize = 50)
+ *     val headers: Map<String, String>
  *
  *     // Generates both vararg and provider (default)
- *     val tags: List<String>,
+ *     val tags: Map<String, String>,
  *
  *     // Only generates provider function
  *     @DslProperty(withVararg = false)
- *     val aliases: List<String>,
+ *     val aliases: Map<String, String>,
  *
  *     // Only generates vararg function
  *     @DslProperty(withProvider = false)
- *     val nicknames: List<String>,
+ *     val nicknames: Map<String, String>,
  *
  *     // Generates neither (property must be set directly)
  *     @DslProperty(withVararg = false, withProvider = false)
- *     val ids: List<Int>
+ *     val ids: Map<String, Int>
  * )
  * ```
  *
+ * @property minSize Minimum number of entries required. -1 means no minimum. Validated at build time.
+ * @property maxSize Maximum number of entries allowed. -1 means no maximum. Validated at build time.
  * @property withVararg Whether to generate a vararg function. Default is true.
  * @property withProvider Whether to generate a provider function. Default is true.
  */
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.SOURCE)
-annotation class DslProperty(
+annotation class MapDsl(
+    val minSize: Int = -1,
+    val maxSize: Int = -1,
     val withVararg: Boolean = true,
     val withProvider: Boolean = true
 )

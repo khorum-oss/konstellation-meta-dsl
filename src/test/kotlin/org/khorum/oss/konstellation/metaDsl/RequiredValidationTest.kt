@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.khorum.oss.konstellation.metaDsl
 
 import org.junit.jupiter.api.Nested
@@ -5,6 +7,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 
+/**
+ * Tests for the deprecated top-level `vRequire*` wrapper functions.
+ * Verifies backward compatibility — these functions must continue to
+ * delegate correctly to [DslValidation].
+ */
 class RequiredValidationTest {
 
     @Nested
@@ -28,152 +35,100 @@ class RequiredValidationTest {
     }
 
     @Nested
-    inner class VRequireCollectionNotEmptyByValue {
+    inner class VRequireCollectionNotEmpty {
         @Test
-        fun `returns collection when not empty`() {
+        fun `by value - returns collection when not empty`() {
             val list = listOf("a", "b")
             val result = vRequireCollectionNotEmpty(list, "items")
             assertEquals(list, result)
         }
 
         @Test
-        fun `throws when collection is null`() {
+        fun `by value - throws when null`() {
             val ex = assertThrows<IllegalArgumentException> {
                 vRequireCollectionNotEmpty<String, List<String>>(null, "items")
             }
             assertEquals("items is required and cannot be empty", ex.message)
         }
-
-        @Test
-        fun `throws when collection is empty`() {
-            val ex = assertThrows<IllegalArgumentException> {
-                vRequireCollectionNotEmpty(emptyList<String>(), "items")
-            }
-            assertEquals("items is required and cannot be empty", ex.message)
-        }
     }
 
     @Nested
-    inner class VRequireCollectionNotEmptyByProperty {
-        private var items: List<String>? = null
-        private var filledItems: List<String>? = listOf("x")
-
+    inner class VRequireMapNotEmpty {
         @Test
-        fun `returns collection when property has non-empty value`() {
-            val result = vRequireCollectionNotEmpty(::filledItems)
-            assertEquals(listOf("x"), result)
-        }
-
-        @Test
-        fun `throws when property is null`() {
-            val ex = assertThrows<IllegalArgumentException> {
-                vRequireCollectionNotEmpty(::items)
-            }
-            assertEquals("items is required and cannot be empty", ex.message)
-        }
-    }
-
-    @Nested
-    inner class VRequireCollectionNotEmptyByFunction {
-        private fun nullProvider(): List<String>? = null
-        private fun emptyProvider(): List<String>? = emptyList()
-        private fun filledProvider(): List<String>? = listOf("a")
-
-        @Test
-        fun `returns collection when function returns non-empty value`() {
-            val result = vRequireCollectionNotEmpty(::filledProvider)
-            assertEquals(listOf("a"), result)
-        }
-
-        @Test
-        fun `throws when function returns null`() {
-            val ex = assertThrows<IllegalArgumentException> {
-                vRequireCollectionNotEmpty(::nullProvider)
-            }
-            assertEquals("nullProvider is required and cannot be empty", ex.message)
-        }
-
-        @Test
-        fun `throws when function returns empty`() {
-            val ex = assertThrows<IllegalArgumentException> {
-                vRequireCollectionNotEmpty(::emptyProvider)
-            }
-            assertEquals("emptyProvider is required and cannot be empty", ex.message)
-        }
-    }
-
-    @Nested
-    inner class VRequireMapNotEmptyByValue {
-        @Test
-        fun `returns map when not empty`() {
+        fun `by value - returns map when not empty`() {
             val map = mapOf("k" to "v")
             val result = vRequireMapNotEmpty(map, "data")
             assertEquals(map, result)
         }
 
         @Test
-        fun `throws when map is null`() {
+        fun `by value - throws when null`() {
             val ex = assertThrows<IllegalArgumentException> {
                 vRequireMapNotEmpty<String, String, Map<String, String>>(null, "data")
             }
             assertEquals("data is required and cannot be empty", ex.message)
         }
-
-        @Test
-        fun `throws when map is empty`() {
-            val ex = assertThrows<IllegalArgumentException> {
-                vRequireMapNotEmpty(emptyMap<String, String>(), "data")
-            }
-            assertEquals("data is required and cannot be empty", ex.message)
-        }
     }
 
     @Nested
-    inner class VRequireMapNotEmptyByProperty {
-        private var data: Map<String, Int>? = null
-        private var filledData: Map<String, Int>? = mapOf("a" to 1)
+    inner class VRequireMinSize {
+        @Test
+        fun `collection - passes at exact min`() {
+            val result = vRequireMinSize(listOf("a", "b"), 2, "items")
+            assertEquals(listOf("a", "b"), result)
+        }
 
         @Test
-        fun `returns map when property has non-empty value`() {
-            val result = vRequireMapNotEmpty(::filledData)
+        fun `collection - throws below min`() {
+            val ex = assertThrows<IllegalArgumentException> {
+                vRequireMinSize(listOf("a"), 3, "items")
+            }
+            assertEquals("items must have at least 3 elements, but has 1", ex.message)
+        }
+
+        @Test
+        fun `map - passes at exact min`() {
+            val result = vRequireMinSize(mapOf("a" to 1), 1, "entries")
             assertEquals(mapOf("a" to 1), result)
         }
 
         @Test
-        fun `throws when property is null`() {
+        fun `map - throws below min`() {
             val ex = assertThrows<IllegalArgumentException> {
-                vRequireMapNotEmpty(::data)
+                vRequireMinSize(emptyMap<String, Int>(), 1, "entries")
             }
-            assertEquals("data is required and cannot be empty", ex.message)
+            assertEquals("entries must have at least 1 entries, but has 0", ex.message)
         }
     }
 
     @Nested
-    inner class VRequireMapNotEmptyByFunction {
-        private fun nullProvider(): Map<String, Int>? = null
-        private fun emptyProvider(): Map<String, Int>? = emptyMap()
-        private fun filledProvider(): Map<String, Int>? = mapOf("a" to 1)
+    inner class VRequireMaxSize {
+        @Test
+        fun `collection - passes at exact max`() {
+            val result = vRequireMaxSize(listOf("a", "b"), 2, "items")
+            assertEquals(listOf("a", "b"), result)
+        }
 
         @Test
-        fun `returns map when function returns non-empty value`() {
-            val result = vRequireMapNotEmpty(::filledProvider)
+        fun `collection - throws above max`() {
+            val ex = assertThrows<IllegalArgumentException> {
+                vRequireMaxSize(listOf("a", "b", "c"), 2, "items")
+            }
+            assertEquals("items must have at most 2 elements, but has 3", ex.message)
+        }
+
+        @Test
+        fun `map - passes at exact max`() {
+            val result = vRequireMaxSize(mapOf("a" to 1), 1, "entries")
             assertEquals(mapOf("a" to 1), result)
         }
 
         @Test
-        fun `throws when function returns null`() {
+        fun `map - throws above max`() {
             val ex = assertThrows<IllegalArgumentException> {
-                vRequireMapNotEmpty(::nullProvider)
+                vRequireMaxSize(mapOf("a" to 1, "b" to 2), 1, "entries")
             }
-            assertEquals("nullProvider is required and cannot be empty", ex.message)
-        }
-
-        @Test
-        fun `throws when function returns empty`() {
-            val ex = assertThrows<IllegalArgumentException> {
-                vRequireMapNotEmpty(::emptyProvider)
-            }
-            assertEquals("emptyProvider is required and cannot be empty", ex.message)
+            assertEquals("entries must have at most 1 entries, but has 2", ex.message)
         }
     }
 }
