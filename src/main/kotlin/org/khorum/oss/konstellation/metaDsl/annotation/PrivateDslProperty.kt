@@ -16,20 +16,20 @@ package org.khorum.oss.konstellation.metaDsl.annotation
  *     // Generates just the setter
  *     val name: String,
  *
- *     // normal interaction (setter and function)
+ *     // normal interaction (function)
  *     @PrivateDslProperty
  *     private val age: Int,
  *
- *     // would disable setter
- *     @PrivateDslProperty(restrictSetter = true)
+ *     // would enable setter
+ *     @PrivateDslProperty(restrictSetter = false)
  *     private val position: Int = 0,
  *
- *     // would restrict the function call
+ *     // would restrict the function call and setter
  *     @PrivateDslProperty(wrapInFunction = false)
  *     private val amount: Int,
  *
- *     // would restrict all standard interaction (besides list and map setters)
- *     @PublicDslProperty(wrapInFunction = false, restrictSetter = false)
+ *     // would restrict function but enable setter
+ *     @PrivateDslProperty(wrapInFunction = false, restrictSetter = false)
  *     private val address: String,
  *
  *     // does nothing
@@ -43,6 +43,6 @@ package org.khorum.oss.konstellation.metaDsl.annotation
 @Target(AnnotationTarget.PROPERTY)
 @Retention(AnnotationRetention.SOURCE)
 annotation class PrivateDslProperty(
-    val restrictSetter: Boolean = false,
+    val restrictSetter: Boolean = true,
     val wrapInFunction: Boolean = true
 )

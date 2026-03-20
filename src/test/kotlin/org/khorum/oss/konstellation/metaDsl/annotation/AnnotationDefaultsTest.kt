@@ -104,20 +104,38 @@ class AnnotationDefaultsTest {
     }
 
     @Nested
-    inner class DslPropertyAnnotation {
+    inner class PublicDslPropertyAnnotation {
         @Test
         fun `has expected parameters`() {
-            assertParameterNames(PublicDslProperty::class, listOf("withVararg", "withProvider"))
+            assertParameterNames(PublicDslProperty::class, listOf("restrictSetter", "wrapInFunction"))
         }
 
         @Test
-        fun `withVararg has a default`() {
-            assertDefault(PublicDslProperty::class, "withVararg", true)
+        fun `restrictSetter has a default`() {
+            assertDefault(PublicDslProperty::class, "restrictSetter", false)
         }
 
         @Test
-        fun `withProvider has a default`() {
-            assertDefault(PublicDslProperty::class, "withProvider", true)
+        fun `wrapInFunction has a default`() {
+            assertDefault(PublicDslProperty::class, "wrapInFunction", false)
+        }
+    }
+
+    @Nested
+    inner class PrivateDslPropertyAnnotation {
+        @Test
+        fun `has expected parameters`() {
+            assertParameterNames(PrivateDslProperty::class, listOf("restrictSetter", "wrapInFunction"))
+        }
+
+        @Test
+        fun `restrictSetter has a default`() {
+            assertDefault(PrivateDslProperty::class, "restrictSetter", false)
+        }
+
+        @Test
+        fun `wrapInFunction has a default`() {
+            assertDefault(PrivateDslProperty::class, "wrapInFunction", true)
         }
     }
 
@@ -150,10 +168,13 @@ class AnnotationDefaultsTest {
     }
 
     @Nested
-    inner class ListConfigAnnotation {
+    inner class ListDslAnnotation {
         @Test
         fun `has expected parameters`() {
-            assertParameterNames(ListDsl::class, listOf("minSize", "maxSize", "uniqueElements", "sorted"))
+            assertParameterNames(
+                ListDsl::class,
+                listOf("minSize", "maxSize", "uniqueElements", "sorted", "withVararg", "withProvider")
+            )
         }
 
         @Test
@@ -175,13 +196,23 @@ class AnnotationDefaultsTest {
         fun `sorted has a default`() {
             assertDefault(ListDsl::class, "sorted", false)
         }
+
+        @Test
+        fun `withVararg has a default`() {
+            assertDefault(ListDsl::class, "withVararg", true)
+        }
+
+        @Test
+        fun `withProvider has a default`() {
+            assertDefault(ListDsl::class, "withProvider", true)
+        }
     }
 
     @Nested
-    inner class MapConfigAnnotation {
+    inner class MapDslAnnotation {
         @Test
         fun `has expected parameters`() {
-            assertParameterNames(MapDsl::class, listOf("minSize", "maxSize"))
+            assertParameterNames(MapDsl::class, listOf("minSize", "maxSize", "withVararg", "withProvider"))
         }
 
         @Test
@@ -192,6 +223,16 @@ class AnnotationDefaultsTest {
         @Test
         fun `maxSize has a default`() {
             assertDefault(MapDsl::class, "maxSize", -1)
+        }
+
+        @Test
+        fun `withVararg has a default`() {
+            assertDefault(MapDsl::class, "withVararg", true)
+        }
+
+        @Test
+        fun `withProvider has a default`() {
+            assertDefault(MapDsl::class, "withProvider", true)
         }
     }
 
@@ -210,24 +251,6 @@ class AnnotationDefaultsTest {
         @Test
         fun `replaceWith has a default`() {
             assertDefault(DeprecatedDsl::class, "replaceWith", "")
-        }
-    }
-
-    @Nested
-    inner class ValidateAnnotation {
-        @Test
-        fun `has expected parameters`() {
-            assertParameterNames(ValidateDsl::class, listOf("expression", "message"))
-        }
-
-        @Test
-        fun `expression is required`() {
-            assertRequired(ValidateDsl::class, "expression")
-        }
-
-        @Test
-        fun `message has a default`() {
-            assertDefault(ValidateDsl::class, "message", "")
         }
     }
 
@@ -254,6 +277,63 @@ class AnnotationDefaultsTest {
         @Test
         fun `names is required`() {
             assertRequired(DslAlias::class, "names")
+        }
+    }
+
+    @Nested
+    inner class RootDslAnnotation {
+        @Test
+        fun `has expected parameters`() {
+            assertParameterNames(RootDsl::class, listOf("name", "alias"))
+        }
+
+        @Test
+        fun `name has a default`() {
+            assertDefault(RootDsl::class, "name", "")
+        }
+
+        @Test
+        fun `alias has a default`() {
+            assertDefault(RootDsl::class, "alias", "")
+        }
+    }
+
+    @Nested
+    inner class TransientDslAnnotation {
+        @Test
+        fun `has expected parameters`() {
+            assertParameterNames(TransientDsl::class, listOf("reason"))
+        }
+
+        @Test
+        fun `reason has a default`() {
+            assertDefault(TransientDsl::class, "reason", "")
+        }
+    }
+
+    @Nested
+    inner class InjectDslMethodAnnotation {
+        @Test
+        fun `has no parameters`() {
+            assertParameterNames(InjectDslMethod::class, emptyList())
+        }
+    }
+
+    @Nested
+    inner class ValidateDslAnnotation {
+        @Test
+        fun `has expected parameters`() {
+            assertParameterNames(ValidateDsl::class, listOf("expression", "message"))
+        }
+
+        @Test
+        fun `expression is required`() {
+            assertRequired(ValidateDsl::class, "expression")
+        }
+
+        @Test
+        fun `message has a default`() {
+            assertDefault(ValidateDsl::class, "message", "")
         }
     }
 }

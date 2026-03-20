@@ -36,6 +36,12 @@ class RequiredValidationTest {
 
     @Nested
     inner class VRequireCollectionNotEmpty {
+        private var presentCollection: List<String>? = listOf("a", "b")
+        private var nullCollection: List<String>? = null
+
+        private fun presentCollectionFn(): List<String>? = listOf("x")
+        private fun nullCollectionFn(): List<String>? = null
+
         @Test
         fun `by value - returns collection when not empty`() {
             val list = listOf("a", "b")
@@ -50,10 +56,42 @@ class RequiredValidationTest {
             }
             assertEquals("items is required and cannot be empty", ex.message)
         }
+
+        @Test
+        fun `by property - returns collection when not empty`() {
+            val result = vRequireCollectionNotEmpty(::presentCollection)
+            assertEquals(listOf("a", "b"), result)
+        }
+
+        @Test
+        fun `by property - throws when null`() {
+            assertThrows<IllegalArgumentException> {
+                vRequireCollectionNotEmpty(::nullCollection)
+            }
+        }
+
+        @Test
+        fun `by function - returns collection when not empty`() {
+            val result = vRequireCollectionNotEmpty(::presentCollectionFn)
+            assertEquals(listOf("x"), result)
+        }
+
+        @Test
+        fun `by function - throws when null`() {
+            assertThrows<IllegalArgumentException> {
+                vRequireCollectionNotEmpty(::nullCollectionFn)
+            }
+        }
     }
 
     @Nested
     inner class VRequireMapNotEmpty {
+        private var presentMap: Map<String, String>? = mapOf("k" to "v")
+        private var nullMap: Map<String, String>? = null
+
+        private fun presentMapFn(): Map<String, String>? = mapOf("k" to "v")
+        private fun nullMapFn(): Map<String, String>? = null
+
         @Test
         fun `by value - returns map when not empty`() {
             val map = mapOf("k" to "v")
@@ -67,6 +105,32 @@ class RequiredValidationTest {
                 vRequireMapNotEmpty<String, String, Map<String, String>>(null, "data")
             }
             assertEquals("data is required and cannot be empty", ex.message)
+        }
+
+        @Test
+        fun `by property - returns map when not empty`() {
+            val result = vRequireMapNotEmpty(::presentMap)
+            assertEquals(mapOf("k" to "v"), result)
+        }
+
+        @Test
+        fun `by property - throws when null`() {
+            assertThrows<IllegalArgumentException> {
+                vRequireMapNotEmpty(::nullMap)
+            }
+        }
+
+        @Test
+        fun `by function - returns map when not empty`() {
+            val result = vRequireMapNotEmpty(::presentMapFn)
+            assertEquals(mapOf("k" to "v"), result)
+        }
+
+        @Test
+        fun `by function - throws when null`() {
+            assertThrows<IllegalArgumentException> {
+                vRequireMapNotEmpty(::nullMapFn)
+            }
         }
     }
 
