@@ -328,6 +328,19 @@ class AnnotationDefaultsTest {
     }
 
     @Nested
+    inner class DefaultStateAnnotation {
+        @Test
+        fun `has expected parameters`() {
+            assertParameterNames(DefaultState::class, listOf("type"))
+        }
+
+        @Test
+        fun `type is required`() {
+            assertRequired(DefaultState::class, "type")
+        }
+    }
+
+    @Nested
     inner class ValidateDslAnnotation {
         @Test
         fun `has expected parameters`() {
