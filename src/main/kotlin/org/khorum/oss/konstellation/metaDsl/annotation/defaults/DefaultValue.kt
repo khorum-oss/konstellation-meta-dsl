@@ -1,4 +1,4 @@
-package org.khorum.oss.konstellation.metaDsl.annotation
+package org.khorum.oss.konstellation.metaDsl.annotation.defaults
 
 /**
  * Annotation to specify a default value for a property in the generated DSL.

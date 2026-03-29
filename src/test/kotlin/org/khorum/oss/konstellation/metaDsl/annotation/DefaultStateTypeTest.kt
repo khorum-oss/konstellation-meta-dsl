@@ -1,6 +1,7 @@
 package org.khorum.oss.konstellation.metaDsl.annotation
 
 import org.junit.jupiter.api.Test
+import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.DefaultStateType
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
