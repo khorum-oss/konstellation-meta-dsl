@@ -19,8 +19,8 @@ plugins {
     id("org.khorum.oss.plugins.open.secrets") version "1.0.3"
     signing
 
-    id("org.khorum.oss.plugins.open.publishing.maven-generated-artifacts") version "1.0.5"
-    id("org.khorum.oss.plugins.open.publishing.digital-ocean-spaces") version "1.0.5"
+    id("org.khorum.oss.plugins.open.publishing.maven-generated-artifacts") version "1.2.0"
+    id("org.khorum.oss.plugins.open.publishing.digital-ocean-spaces") version "1.2.0"
 }
 
 group = "org.khorum.oss.konstellation"
