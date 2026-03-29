@@ -2,6 +2,8 @@ package org.khorum.oss.konstellation.metaDsl.annotation
 
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.khorum.oss.konstellation.metaDsl.annotation.defaults.DefaultValue
+import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.DefaultState
 import kotlin.reflect.KClass
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.primaryConstructor

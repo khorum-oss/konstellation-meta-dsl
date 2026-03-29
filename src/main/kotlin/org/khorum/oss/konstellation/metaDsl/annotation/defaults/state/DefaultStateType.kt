@@ -1,4 +1,4 @@
-package org.khorum.oss.konstellation.metaDsl.annotation
+package org.khorum.oss.konstellation.metaDsl.annotation.defaults.state
 
 /**
  * Predefined default states for common property types.
@@ -6,7 +6,7 @@ package org.khorum.oss.konstellation.metaDsl.annotation
  * Each entry carries a [codeSnippet] — the exact Kotlin literal the KSP processor
  * should emit as the default value initializer in generated builder code.
  *
- * Use with [@DefaultState][DefaultState] instead of [@DefaultValue][DefaultValue]
+ * Use with [@DefaultState][DefaultState] instead of [@DefaultValue][org.khorum.oss.konstellation.metaDsl.annotation.defaults.DefaultValue]
  * to avoid string-escaping issues and improve readability for standard defaults.
  *
  * @property codeSnippet The Kotlin code literal emitted by the processor.

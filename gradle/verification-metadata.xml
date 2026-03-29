@@ -35,6 +35,9 @@
          <trust group="com.fasterxml.jackson.module" name="jackson-module-jaxb-annotations"/>
          <trust group="com.fasterxml.jackson.module" name="jackson-module-kotlin"/>
          <trust group="org.junit.jupiter" name="junit-jupiter-api"/>
+         <trust group="org.junit.jupiter" name="junit-jupiter-engine"/>
+         <trust group="org.junit.platform" name="junit-platform-engine"/>
+         <trust group="org.junit.platform" name="junit-platform-launcher"/>
          <trust group="org.junit.platform" name="junit-platform-commons"/>
          <trust group="org.opentest4j" name="opentest4j"/>
          <trust group="com.fasterxml.woodstox" name="woodstox-core"/>
