@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.khorum.oss.konstellation.metaDsl.annotation.defaults.DefaultValue
 import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.DefaultState
+import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.standard.DefaultFalse
+import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.standard.DefaultTrue
 import kotlin.reflect.KClass
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.primaryConstructor
@@ -35,7 +37,7 @@ class AnnotationDefaultsTest {
 
         assertNotNull(
             param.isOptional.takeIf { it },
-            "Parameter '$paramName' in ${annotationClass.simpleName} should have a default value"
+            "Parameter '$paramName' in ${annotationClass.simpleName} should have a default value $expectedDefault"
         )
 
         // For annotations with SOURCE retention, we can't invoke the constructor
@@ -83,23 +85,8 @@ class AnnotationDefaultsTest {
         fun `has expected parameters`() {
             assertParameterNames(
                 GeneratedDsl::class,
-                listOf("withListGroup", "withMapGroup", "isRoot", "name", "debug")
+                listOf("name", "debug")
             )
-        }
-
-        @Test
-        fun `withListGroup has a default`() {
-            assertDefault(GeneratedDsl::class, "withListGroup", false)
-        }
-
-        @Test
-        fun `withMapGroup has a default`() {
-            assertDefault(GeneratedDsl::class, "withMapGroup", GeneratedDsl.MapGroupTypes.NONE)
-        }
-
-        @Test
-        fun `isRoot has a default`() {
-            assertDefault(GeneratedDsl::class, "isRoot", false)
         }
 
         @Test
@@ -339,6 +326,22 @@ class AnnotationDefaultsTest {
         @Test
         fun `type is required`() {
             assertRequired(DefaultState::class, "type")
+        }
+    }
+
+    @Nested
+    inner class DefaultFalseAnnotation {
+        @Test
+        fun `has expected parameters`() {
+            assertParameterNames(DefaultFalse::class, listOf("validFunctionName", "validTemplate"))
+        }
+    }
+
+    @Nested
+    inner class DefaultTrueAnnotation {
+        @Test
+        fun `has expected parameters`() {
+            assertParameterNames(DefaultTrue::class, listOf("negationFunctionName", "negationTemplate"))
         }
     }
 
