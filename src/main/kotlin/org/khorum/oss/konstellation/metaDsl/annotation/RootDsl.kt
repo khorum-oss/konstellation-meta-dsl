@@ -7,6 +7,6 @@ package org.khorum.oss.konstellation.metaDsl.annotation
  * @param name The name of the root DSL object - overrides the class name.
  * @param alias An optional alias for the root DSL object - will create a separate builder..
  */
-@Target(AnnotationTarget.PROPERTY)
+@Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 annotation class RootDsl(val name: String = "", val alias: String = "")

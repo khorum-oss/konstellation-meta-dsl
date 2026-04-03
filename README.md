@@ -99,21 +99,21 @@ Adds KDoc documentation to generated builder classes and accessor functions. App
 
 #### `@RootDsl`
 
-Marks a property as the root DSL entry point. Replaces `@GeneratedDsl(isRoot = true)`.
+Marks a class as the root DSL entry point. Replaces `@GeneratedDsl(isRoot = true)`.
 
-| Parameter | Type     | Default | Description                                                  |
-|-----------|----------|---------|--------------------------------------------------------------|
-| `name`    | `String` | `""`    | Name of the root DSL object (defaults to class name)         |
+| Parameter | Type     | Default | Description                                                         |
+|-----------|----------|---------|---------------------------------------------------------------------|
+| `name`    | `String` | `""`    | Name of the root DSL object (defaults to class name)                |
 | `alias`   | `String` | `""`    | Optional alias for the root DSL object (creates a separate builder) |
 
 #### `@PublicDslProperty`
 
 Controls generated accessor behavior for public properties.
 
-| Parameter        | Type      | Default | Description                                                      |
-|------------------|-----------|---------|------------------------------------------------------------------|
-| `restrictSetter` | `Boolean` | `false` | When `true`, disables the direct setter                          |
-| `wrapInFunction` | `Boolean` | `false` | When `true`, generates an additional function-based accessor     |
+| Parameter        | Type      | Default | Description                                                  |
+|------------------|-----------|---------|--------------------------------------------------------------|
+| `restrictSetter` | `Boolean` | `false` | When `true`, disables the direct setter                      |
+| `wrapInFunction` | `Boolean` | `false` | When `true`, generates an additional function-based accessor |
 
 ```kotlin
 @GeneratedDsl
@@ -136,12 +136,13 @@ data class Person(
 
 #### `@PrivateDslProperty`
 
-Controls generated accessor behavior for private properties. Defaults differ from `@PublicDslProperty` — `wrapInFunction` defaults to `true`.
+Controls generated accessor behavior for private properties. Defaults differ from `@PublicDslProperty` —
+`wrapInFunction` defaults to `true`.
 
-| Parameter        | Type      | Default | Description                                                  |
-|------------------|-----------|---------|--------------------------------------------------------------|
-| `restrictSetter` | `Boolean` | `false` | When `true`, disables the direct setter                      |
-| `wrapInFunction` | `Boolean` | `true`  | When `true`, generates a function-based accessor             |
+| Parameter        | Type      | Default | Description                                      |
+|------------------|-----------|---------|--------------------------------------------------|
+| `restrictSetter` | `Boolean` | `false` | When `true`, disables the direct setter          |
+| `wrapInFunction` | `Boolean` | `true`  | When `true`, generates a function-based accessor |
 
 ```kotlin
 @GeneratedDsl
@@ -228,15 +229,16 @@ data class Config(
 
 #### `@ListDsl`
 
-Configures constraints, transformations, and accessor generation for `List` properties. Combines the functionality of the deprecated `@ListConfig` and `@DslProperty`.
+Configures constraints, transformations, and accessor generation for `List` properties. Combines the functionality of
+the deprecated `@ListConfig` and `@DslProperty`.
 
-| Parameter        | Type      | Default | Description                                         |
-|------------------|-----------|---------|-----------------------------------------------------|
-| `minSize`        | `Int`     | `-1`    | Minimum elements required (`-1` = no minimum)       |
-| `maxSize`        | `Int`     | `-1`    | Maximum elements allowed (`-1` = no maximum)        |
-| `uniqueElements` | `Boolean` | `false` | Remove duplicates via `.distinct()` before building |
-| `sorted`         | `Boolean` | `false` | Sort elements via `.sorted()` before building       |
-| `withVararg`     | `Boolean` | `true`  | Generate vararg accessor (e.g., `tags("a", "b")`)   |
+| Parameter        | Type      | Default | Description                                               |
+|------------------|-----------|---------|-----------------------------------------------------------|
+| `minSize`        | `Int`     | `-1`    | Minimum elements required (`-1` = no minimum)             |
+| `maxSize`        | `Int`     | `-1`    | Maximum elements allowed (`-1` = no maximum)              |
+| `uniqueElements` | `Boolean` | `false` | Remove duplicates via `.distinct()` before building       |
+| `sorted`         | `Boolean` | `false` | Sort elements via `.sorted()` before building             |
+| `withVararg`     | `Boolean` | `true`  | Generate vararg accessor (e.g., `tags("a", "b")`)         |
 | `withProvider`   | `Boolean` | `true`  | Generate provider accessor (e.g., `tags { listOf("a") }`) |
 
 ```kotlin
@@ -252,7 +254,8 @@ data class Config(
 
 #### `@MapDsl`
 
-Configures constraints and accessor generation for `Map` properties. Combines the functionality of the deprecated `@MapConfig` and `@DslProperty`.
+Configures constraints and accessor generation for `Map` properties. Combines the functionality of the deprecated
+`@MapConfig` and `@DslProperty`.
 
 | Parameter      | Type      | Default | Description                                  |
 |----------------|-----------|---------|----------------------------------------------|
@@ -265,9 +268,9 @@ Configures constraints and accessor generation for `Map` properties. Combines th
 
 Excludes a property from the generated DSL builder entirely.
 
-| Parameter | Type     | Default | Description                                         |
-|-----------|----------|---------|-----------------------------------------------------|
-| `reason`  | `String` | `""`    | Optional reason for excluding the property          |
+| Parameter | Type     | Default | Description                                |
+|-----------|----------|---------|--------------------------------------------|
+| `reason`  | `String` | `""`    | Optional reason for excluding the property |
 
 #### `@InjectDslMethod`
 
@@ -281,6 +284,60 @@ Enables single-input transform functions for properties with single-constructor 
 |---------------------|-------------|------------|-------------------------------------------|
 | `inputType`         | `KClass<T>` | *required* | The input type for the transform          |
 | `transformTemplate` | `String`    | `""`       | Transform template (e.g., `Duration(%N)`) |
+
+#### `@DefaultTrue`
+
+Enables single-input transform functions for properties with single-constructor types.
+
+| Parameter             | Type                       | Default | Description                                              |
+|-----------------------|----------------------------|---------|----------------------------------------------------------|
+| `negationFunctioName` | `String`                   | ""      | Name of the negation function - can use template instead |
+| `negationTemplate`    | `NegationFunctionTemplate` | `NONE`  | Transform template                                       |
+
+Options for `NegationFunctionTemplate`:
+
+| Enum Value      | Description                                |
+|-----------------|--------------------------------------------|
+| `NONE`          | No negation function                       |
+| `DOES_NOT`      | Negation function name is `doesNot{x}`     |
+| `DOES_NOT_HAVE` | Negation function name is `doesNotHave{x}` |
+| `DISABLED`      | Negation function name is `disabled`       |
+| `IS_DISABLED`   | Negation function name is `{x}isDisabled`  |
+| `NOT`           | Negation function name is `not{x}`         |
+| `IS_NOT`        | Negation function name is `isNot{x}`       |
+| `HAS_NOT`       | Negation function name is `hasNot{x}`      |
+| `LACKS`         | Negation function name is `lacks{x}`       |
+| `NO`            | Negation function name is `no{x}`          |
+| `WITHOUT`       | Negation function name is `without{x}`     |
+| `MISSING`       | Negation function name is `{x}Missing`     |
+| `IS_MISSING`    | Negation function name is `{x}isMissing`   |
+| `ABSENT`        | Negation function name is `{x}Absent`      |
+| `IS_ABSENT`     | Negation function name is `{x}isAbsent`    |
+| `NEVER`         | Negation function name is `never{x}`       |
+
+#### `@DefaultFalse`
+
+Enables single-input transform functions for properties with single-constructor types.
+
+| Parameter          | Type                    | Default | Description                                           |
+|--------------------|-------------------------|---------|-------------------------------------------------------|
+| `validFunctioName` | `String`                | ""      | Name of the valid function - can use template instead |
+| `validTemplate`    | `ValidFunctionTemplate` | `NONE`  | Transform template                                    |
+
+Options for `ValidFunctionTemplate`:
+
+| Enum Value   | Description                           |
+|--------------|---------------------------------------|
+| `NONE`       | No valid function;                    |
+| `IS`         | Valid function name is `is{x}`        |
+| `DOES`       | Valid function name is `does{x}`      |
+| `HAS`        | Valid function name is `has{x}`       |
+| `ENABLED`    | Valid function name is `{x}Enabled`   |
+| `IS_ENABLED` | Valid function name is `{x}isEnabled` |
+| `WITH`       | Valid function name is `with{x}`      |
+| `PRESENT`    | Valid function name is `present`      |
+| `IS_PRESENT` | Valid function name is `isPresent`    |
+| `ALWAYS`     | Valid function name is `always`       |
 
 ## Nested Configuration
 
@@ -349,14 +406,14 @@ non-NONE types.
 
 The following annotations have been replaced and will be removed in a future version:
 
-| Deprecated         | Replacement                          |
-|--------------------|--------------------------------------|
-| `@Alias`           | `@DslAlias`                          |
-| `@Description`     | `@DslDescription`                    |
-| `@Validate`        | `@ValidateDsl`                       |
-| `@ListConfig`      | `@ListDsl`                           |
-| `@MapConfig`       | `@MapDsl`                            |
-| `@DslProperty`     | `@ListDsl` / `@MapDsl` / `@PublicDslProperty` / `@PrivateDslProperty` |
+| Deprecated     | Replacement                                                           |
+|----------------|-----------------------------------------------------------------------|
+| `@Alias`       | `@DslAlias`                                                           |
+| `@Description` | `@DslDescription`                                                     |
+| `@Validate`    | `@ValidateDsl`                                                        |
+| `@ListConfig`  | `@ListDsl`                                                            |
+| `@MapConfig`   | `@MapDsl`                                                             |
+| `@DslProperty` | `@ListDsl` / `@MapDsl` / `@PublicDslProperty` / `@PrivateDslProperty` |
 
 ## Configuration Options
 

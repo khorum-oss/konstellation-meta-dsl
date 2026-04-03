@@ -8,10 +8,10 @@ import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.DefaultSta
 @DefaultState(DefaultStateType.TRUE)
 annotation class DefaultTrue(
     val negationFunctionName: String = "",
-    val negationTemplate: NegationTemplate = NegationTemplate.NONE
+    val negationTemplate: NegationFunctionTemplate = NegationFunctionTemplate.NONE
 ) {
 
-    enum class NegationTemplate(val template: String) {
+    enum class NegationFunctionTemplate(val template: String) {
         /**
          * NONE
          */
@@ -25,13 +25,13 @@ annotation class DefaultTrue(
          */
         DOES_NOT_HAVE("doesNotHave{x}"),
         /**
-         * {x}Disabled
-         */
-        IS_DISABLED("{x}IsDisabled"),
-        /**
          * {x}IsDisabled
          */
         DISABLED("{x}Disabled"),
+        /**
+         * {x}Disabled
+         */
+        IS_DISABLED("{x}IsDisabled"),
         /**
          * not{x}
          */
