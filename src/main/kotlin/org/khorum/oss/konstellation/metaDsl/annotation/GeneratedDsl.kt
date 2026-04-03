@@ -9,22 +9,6 @@ package org.khorum.oss.konstellation.metaDsl.annotation
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 annotation class GeneratedDsl(
-    @Deprecated("Use ListDsl instead")
-    val withListGroup: Boolean = false,
-    @Deprecated("Use MapDsl instead")
-    val withMapGroup: String = MapGroupTypes.NONE,
-    @Deprecated("Use RootDsl instead")
-    val isRoot: Boolean = false,
     val name: String = "",
     val debug: Boolean = false
-) {
-    /**
-     * Constants representing the different types of map groups.
-     */
-    object MapGroupTypes {
-        const val NONE = "NONE"
-        const val SINGLE = "SINGLE"
-        const val LIST = "LIST"
-        const val ALL = "ALL"
-    }
-}
+)
