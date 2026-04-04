@@ -8,7 +8,7 @@ import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.DefaultSta
 @DefaultState(DefaultStateType.TRUE)
 annotation class DefaultFalse(
     val validFunctionName: String = "",
-    val validTemplate: ValidFunctionTemplate = ValidFunctionTemplate.NONE,
+    val validTemplate: ValidFunctionTemplate = ValidFunctionTemplate.SELF,
     val negationFunctionName: String = "",
     val negationTemplate: NegationFunctionTemplate = NegationFunctionTemplate.NONE
 ) {

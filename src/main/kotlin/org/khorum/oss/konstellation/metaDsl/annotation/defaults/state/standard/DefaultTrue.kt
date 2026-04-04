@@ -10,7 +10,7 @@ annotation class DefaultTrue(
     val negationFunctionName: String = "",
     val negationTemplate: NegationFunctionTemplate = NegationFunctionTemplate.NONE,
     val validFunctionName: String = "",
-    val validTemplate: ValidFunctionTemplate = ValidFunctionTemplate.NONE
+    val validTemplate: ValidFunctionTemplate = ValidFunctionTemplate.SELF
 ) {
 
     enum class NegationFunctionTemplate(val template: String) {
