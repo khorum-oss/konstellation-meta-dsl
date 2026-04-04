@@ -8,7 +8,7 @@ Published annotation and utility artifact for the Konstellation KSP-based DSL co
 
 - **Group:** `org.khorum.oss.konstellation`
 - **Package:** `io.violabs.konstellation.metaDsl`
-- **Kotlin:** 2.1.20, **Java:** 17
+- **Kotlin:** 2.1.20, **Java:** 21
 - **Version:** tracked in `VERSION` file (semver)
 
 ## Build Commands
