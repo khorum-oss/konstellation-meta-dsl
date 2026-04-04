@@ -13,6 +13,7 @@ annotation class DefaultFalse(
     val negationTemplate: NegationFunctionTemplate = NegationFunctionTemplate.NONE
 ) {
     enum class ValidFunctionTemplate(val template: String) {
+        SELF(""),
         NONE(""),
 
         /**
@@ -54,6 +55,7 @@ annotation class DefaultFalse(
     }
 
     enum class NegationFunctionTemplate(val template: String) {
+        SELF(""),
         /**
          * NONE
          */

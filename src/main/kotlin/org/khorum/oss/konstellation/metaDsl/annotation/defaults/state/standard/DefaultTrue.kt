@@ -14,6 +14,7 @@ annotation class DefaultTrue(
 ) {
 
     enum class NegationFunctionTemplate(val template: String) {
+        SELF(""),
         /**
          * NONE
          */
@@ -81,6 +82,7 @@ annotation class DefaultTrue(
     }
 
     enum class ValidFunctionTemplate(val template: String) {
+        SELF(""),
         NONE(""),
 
         /**
