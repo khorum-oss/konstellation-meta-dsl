@@ -3,6 +3,7 @@ package org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.standard
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.standard.DefaultTrue.NegationFunctionTemplate
+import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.standard.DefaultTrue.ValidFunctionTemplate
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.primaryConstructor
 import kotlin.test.assertEquals
@@ -19,7 +20,10 @@ class DefaultTrueTest {
             val paramNames = constructor.parameters
                 .filter { it.kind == KParameter.Kind.VALUE }
                 .map { it.name }
-            assertEquals(listOf("negationFunctionName", "negationTemplate"), paramNames)
+            assertEquals(
+                listOf("negationFunctionName", "negationTemplate", "validFunctionName", "validTemplate"),
+                paramNames
+            )
         }
 
         @Test
@@ -32,6 +36,18 @@ class DefaultTrueTest {
         fun `negationTemplate has a default`() {
             val param = DefaultTrue::class.primaryConstructor!!.parameters.first { it.name == "negationTemplate" }
             assertTrue(param.isOptional, "negationTemplate should have a default value")
+        }
+
+        @Test
+        fun `validFunctionName has a default`() {
+            val param = DefaultTrue::class.primaryConstructor!!.parameters.first { it.name == "validFunctionName" }
+            assertTrue(param.isOptional, "validFunctionName should have a default value")
+        }
+
+        @Test
+        fun `validTemplate has a default`() {
+            val param = DefaultTrue::class.primaryConstructor!!.parameters.first { it.name == "validTemplate" }
+            assertTrue(param.isOptional, "validTemplate should have a default value")
         }
     }
 
@@ -80,6 +96,53 @@ class DefaultTrueTest {
         fun `all templates contain placeholder except NONE`() {
             NegationFunctionTemplate.entries
                 .filter { it != NegationFunctionTemplate.NONE }
+                .forEach { template ->
+                    assertTrue(
+                        template.template.contains("{x}"),
+                        "${template.name} should contain {x} placeholder but was '${template.template}'"
+                    )
+                }
+        }
+    }
+
+    @Nested
+    inner class ValidTemplateEnum {
+        @Test
+        fun `all enum values are present`() {
+            val values = ValidFunctionTemplate.entries
+            assertEquals(10, values.size)
+        }
+
+        @Test
+        fun `contains expected entries`() {
+            val values = ValidFunctionTemplate.entries
+            val expectedNames = listOf(
+                "NONE", "IS", "DOES", "HAS", "ENABLED",
+                "IS_ENABLED", "WITH", "PRESENT", "IS_PRESENT", "ALWAYS"
+            )
+            expectedNames.forEach { name ->
+                assertNotNull(values.find { it.name == name }, "Missing ValidFunctionTemplate entry: $name")
+            }
+        }
+
+        @Test
+        fun `template values are correct`() {
+            assertEquals("", ValidFunctionTemplate.NONE.template)
+            assertEquals("is{x}", ValidFunctionTemplate.IS.template)
+            assertEquals("does{x}", ValidFunctionTemplate.DOES.template)
+            assertEquals("has{x}", ValidFunctionTemplate.HAS.template)
+            assertEquals("{x}Enabled", ValidFunctionTemplate.ENABLED.template)
+            assertEquals("{x}IsEnabled", ValidFunctionTemplate.IS_ENABLED.template)
+            assertEquals("with{x}", ValidFunctionTemplate.WITH.template)
+            assertEquals("{x}Present", ValidFunctionTemplate.PRESENT.template)
+            assertEquals("{x}IsPresent", ValidFunctionTemplate.IS_PRESENT.template)
+            assertEquals("always{x}", ValidFunctionTemplate.ALWAYS.template)
+        }
+
+        @Test
+        fun `all templates contain placeholder except NONE`() {
+            ValidFunctionTemplate.entries
+                .filter { it != ValidFunctionTemplate.NONE }
                 .forEach { template ->
                     assertTrue(
                         template.template.contains("{x}"),
