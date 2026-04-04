@@ -333,7 +333,7 @@ class AnnotationDefaultsTest {
     inner class DefaultFalseAnnotation {
         @Test
         fun `has expected parameters`() {
-            assertParameterNames(DefaultFalse::class, listOf("validFunctionName", "validTemplate"))
+            assertParameterNames(DefaultFalse::class, listOf("validFunctionName", "validTemplate", "negationFunctionName", "negationTemplate"))
         }
     }
 
@@ -341,7 +341,7 @@ class AnnotationDefaultsTest {
     inner class DefaultTrueAnnotation {
         @Test
         fun `has expected parameters`() {
-            assertParameterNames(DefaultTrue::class, listOf("negationFunctionName", "negationTemplate"))
+            assertParameterNames(DefaultTrue::class, listOf("negationFunctionName", "negationTemplate", "validFunctionName", "validTemplate"))
         }
     }
 

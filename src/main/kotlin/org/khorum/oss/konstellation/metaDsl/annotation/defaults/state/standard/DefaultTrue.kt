@@ -8,7 +8,9 @@ import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.DefaultSta
 @DefaultState(DefaultStateType.TRUE)
 annotation class DefaultTrue(
     val negationFunctionName: String = "",
-    val negationTemplate: NegationFunctionTemplate = NegationFunctionTemplate.NONE
+    val negationTemplate: NegationFunctionTemplate = NegationFunctionTemplate.NONE,
+    val validFunctionName: String = "",
+    val validTemplate: ValidFunctionTemplate = ValidFunctionTemplate.NONE
 ) {
 
     enum class NegationFunctionTemplate(val template: String) {
@@ -76,5 +78,46 @@ annotation class DefaultTrue(
          * never{X}
          */
         NEVER("never{x}");
+    }
+
+    enum class ValidFunctionTemplate(val template: String) {
+        NONE(""),
+
+        /**
+         * is{x}
+         */
+        IS("is{x}"),
+        /**
+         * does{x}
+         */
+        DOES("does{x}"),
+        /**
+         * has{x}
+         */
+        HAS("has{x}"),
+        /**
+         * {x}Enabled
+         */
+        ENABLED("{x}Enabled"),
+        /**
+         * {x}IsEnabled
+         */
+        IS_ENABLED("{x}IsEnabled"),
+        /**
+         * with{x}
+         */
+        WITH("with{x}"),
+        /**
+         * {x}Present
+         */
+        PRESENT("{x}Present"),
+        /**
+         * {x}IsPresent
+         */
+        IS_PRESENT("{x}IsPresent"),
+        /**
+         * always{X}
+         */
+        ALWAYS("always{x}")
     }
 }
