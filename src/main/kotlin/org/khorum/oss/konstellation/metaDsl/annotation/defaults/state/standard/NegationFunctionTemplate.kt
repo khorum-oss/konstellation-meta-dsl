@@ -9,6 +9,11 @@ enum class NegationFunctionTemplate(val template: String) {
     NONE(""),
 
     /**
+     * doNot{X}
+     */
+    DO_NOT("doNot{x}"),
+
+    /**
      * doesNot{x}
      */
     DOES_NOT("doesNot{x}"),
@@ -17,6 +22,11 @@ enum class NegationFunctionTemplate(val template: String) {
      * doesNotHave{x}
      */
     DOES_NOT_HAVE("doesNotHave{x}"),
+
+    /**
+     * disable{x}
+     */
+    DISABLE("disable{x}"),
 
     /**
      * {x}IsDisabled
@@ -47,6 +57,16 @@ enum class NegationFunctionTemplate(val template: String) {
      * lacks{X}
      */
     LACKS("lacks{x}"),
+
+    /**
+     * deny{X}
+     */
+    DENY("deny{x}"),
+
+    /**
+     * isDenied{X}
+     */
+    IS_DENIED("{x}IsDenied"),
 
     /**
      * no{X}
