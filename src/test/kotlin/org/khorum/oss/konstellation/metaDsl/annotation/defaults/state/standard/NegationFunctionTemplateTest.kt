@@ -9,15 +9,15 @@ class NegationFunctionTemplateTest {
     @Test
     fun `all enum values are present`() {
         val values = NegationFunctionTemplate.entries
-        assertEquals(17, values.size)
+        assertEquals(21, values.size)
     }
 
     @Test
     fun `contains expected entries`() {
         val values = NegationFunctionTemplate.entries
         val expectedNames = listOf(
-            "SELF", "NONE", "DOES_NOT", "DOES_NOT_HAVE", "IS_DISABLED", "DISABLED",
-            "NOT", "IS_NOT", "HAS_NOT", "LACKS", "NO",
+            "SELF", "NONE", "DO_NOT", "DOES_NOT", "DOES_NOT_HAVE", "DISABLE", "IS_DISABLED", "DISABLED",
+            "NOT", "IS_NOT", "HAS_NOT", "LACKS", "DENY", "IS_DENIED", "NO",
             "WITHOUT", "MISSING", "IS_MISSING", "ABSENT", "IS_ABSENT", "NEVER"
         )
         expectedNames.forEach { name ->
@@ -41,10 +41,14 @@ class NegationFunctionTemplateTest {
     fun `template values are correct`() {
         assertEquals("", NegationFunctionTemplate.SELF.template)
         assertEquals("", NegationFunctionTemplate.NONE.template)
+        assertEquals("disable{x}", NegationFunctionTemplate.DISABLE.template)
+        assertEquals("deny{x}", NegationFunctionTemplate.DENY.template)
+        assertEquals("doNot{x}", NegationFunctionTemplate.DO_NOT.template)
         assertEquals("doesNot{x}", NegationFunctionTemplate.DOES_NOT.template)
         assertEquals("doesNotHave{x}", NegationFunctionTemplate.DOES_NOT_HAVE.template)
         assertEquals("{x}IsDisabled", NegationFunctionTemplate.IS_DISABLED.template)
         assertEquals("{x}Disabled", NegationFunctionTemplate.DISABLED.template)
+        assertEquals("{x}IsDenied", NegationFunctionTemplate.IS_DENIED.template)
         assertEquals("not{x}", NegationFunctionTemplate.NOT.template)
         assertEquals("isNot{x}", NegationFunctionTemplate.IS_NOT.template)
         assertEquals("hasNot{x}", NegationFunctionTemplate.HAS_NOT.template)

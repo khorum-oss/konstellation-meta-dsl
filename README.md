@@ -296,24 +296,29 @@ Enables single-input transform functions for properties with single-constructor 
 
 Options for `NegationFunctionTemplate`:
 
-| Enum Value      | Description                                |
-|-----------------|--------------------------------------------|
-| `NONE`          | No negation function                       |
-| `DOES_NOT`      | Negation function name is `doesNot{x}`     |
-| `DOES_NOT_HAVE` | Negation function name is `doesNotHave{x}` |
-| `DISABLED`      | Negation function name is `disabled`       |
-| `IS_DISABLED`   | Negation function name is `{x}isDisabled`  |
-| `NOT`           | Negation function name is `not{x}`         |
-| `IS_NOT`        | Negation function name is `isNot{x}`       |
-| `HAS_NOT`       | Negation function name is `hasNot{x}`      |
-| `LACKS`         | Negation function name is `lacks{x}`       |
-| `NO`            | Negation function name is `no{x}`          |
-| `WITHOUT`       | Negation function name is `without{x}`     |
-| `MISSING`       | Negation function name is `{x}Missing`     |
-| `IS_MISSING`    | Negation function name is `{x}isMissing`   |
-| `ABSENT`        | Negation function name is `{x}Absent`      |
-| `IS_ABSENT`     | Negation function name is `{x}isAbsent`    |
-| `NEVER`         | Negation function name is `never{x}`       |
+| Enum Value      | Description                                       |
+|-----------------|---------------------------------------------------|
+| `SELF`          | No negation function; property is the method name |
+| `NONE`          | No negation function                              |
+| `DO_NOT`        | Negation function name is `doNot{x}`              |
+| `DOES_NOT`      | Negation function name is `doesNot{x}`            |
+| `DOES_NOT_HAVE` | Negation function name is `doesNotHave{x}`        |
+| `DISABLE`       | Negation function name is `disable{x}`            |
+| `DISABLED`      | Negation function name is `{x}disabled`           |
+| `IS_DISABLED`   | Negation function name is `{x}isDisabled`         |
+| `NOT`           | Negation function name is `not{x}` (default)      |
+| `IS_NOT`        | Negation function name is `isNot{x}`              |
+| `HAS_NOT`       | Negation function name is `hasNot{x}`             |
+| `LACKS`         | Negation function name is `lacks{x}`              |
+| `DENY`          | Negation function name is `deny{x}`               |
+| `IS_DENIED`     | Negation function name is `{x}IsDenied`           |
+| `NO`            | Negation function name is `no{x}`                 |
+| `WITHOUT`       | Negation function name is `without{x}`            |
+| `MISSING`       | Negation function name is `{x}Missing`            |
+| `IS_MISSING`    | Negation function name is `{x}isMissing`          |
+| `ABSENT`        | Negation function name is `{x}Absent`             |
+| `IS_ABSENT`     | Negation function name is `{x}isAbsent`           |
+| `NEVER`         | Negation function name is `never{x}`              |
 
 #### `@DefaultFalse`
 
@@ -326,18 +331,20 @@ Enables single-input transform functions for properties with single-constructor 
 
 Options for `ValidFunctionTemplate`:
 
-| Enum Value   | Description                           |
-|--------------|---------------------------------------|
-| `NONE`       | No valid function;                    |
-| `IS`         | Valid function name is `is{x}`        |
-| `DOES`       | Valid function name is `does{x}`      |
-| `HAS`        | Valid function name is `has{x}`       |
-| `ENABLED`    | Valid function name is `{x}Enabled`   |
-| `IS_ENABLED` | Valid function name is `{x}isEnabled` |
-| `WITH`       | Valid function name is `with{x}`      |
-| `PRESENT`    | Valid function name is `present`      |
-| `IS_PRESENT` | Valid function name is `isPresent`    |
-| `ALWAYS`     | Valid function name is `always`       |
+| Enum Value   | Description                                              |
+|--------------|----------------------------------------------------------|
+| `SELF`       | No valid function; property is the method name (default) |
+| `NONE`       | No valid function                                        |
+| `IS`         | Valid function name is `is{x}`                           |
+| `DOES`       | Valid function name is `does{x}`                         |
+| `HAS`        | Valid function name is `has{x}`                          |
+| `ENABLED`    | Valid function name is `{x}Enabled`                      |
+| `IS_ENABLED` | Valid function name is `{x}isEnabled`                    |
+| `WITH`       | Valid function name is `with{x}`                         |
+| `EXISTS`     | Valid function name is `{x}exists`                       |
+| `PRESENT`    | Valid function name is `{x}present`                      |
+| `IS_PRESENT` | Valid function name is `{x}isPresent`                    |
+| `ALWAYS`     | Valid function name is `always{x}`                       |
 
 ## Nested Configuration
 

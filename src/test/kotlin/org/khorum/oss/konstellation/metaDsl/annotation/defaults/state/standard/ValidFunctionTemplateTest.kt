@@ -9,7 +9,7 @@ class ValidFunctionTemplateTest {
     @Test
     fun `all enum values are present`() {
         val values = ValidFunctionTemplate.entries
-        assertEquals(11, values.size)
+        assertEquals(12, values.size)
     }
 
     @Test
@@ -17,7 +17,7 @@ class ValidFunctionTemplateTest {
         val values = ValidFunctionTemplate.entries
         val expectedNames = listOf(
             "SELF", "NONE", "IS", "DOES", "HAS", "ENABLED",
-            "IS_ENABLED", "WITH", "PRESENT", "IS_PRESENT", "ALWAYS"
+            "IS_ENABLED", "WITH", "EXISTS", "PRESENT", "IS_PRESENT", "ALWAYS"
         )
         expectedNames.forEach { name ->
             assertNotNull(values.find { it.name == name }, "Missing ValidFunctionTemplate entry: $name")
@@ -34,6 +34,7 @@ class ValidFunctionTemplateTest {
         assertEquals("{x}Enabled", ValidFunctionTemplate.ENABLED.template)
         assertEquals("{x}IsEnabled", ValidFunctionTemplate.IS_ENABLED.template)
         assertEquals("with{x}", ValidFunctionTemplate.WITH.template)
+        assertEquals("{x}Exists", ValidFunctionTemplate.EXISTS.template)
         assertEquals("{x}Present", ValidFunctionTemplate.PRESENT.template)
         assertEquals("{x}IsPresent", ValidFunctionTemplate.IS_PRESENT.template)
         assertEquals("always{x}", ValidFunctionTemplate.ALWAYS.template)

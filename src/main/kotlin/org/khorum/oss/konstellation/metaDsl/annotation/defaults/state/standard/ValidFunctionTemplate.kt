@@ -40,6 +40,11 @@ enum class ValidFunctionTemplate(val template: String) {
     PRESENT("{x}Present"),
 
     /**
+     * {x}Exists
+     */
+    EXISTS("{x}Exists"),
+
+    /**
      * {x}IsPresent
      */
     IS_PRESENT("{x}IsPresent"),
