@@ -2,6 +2,7 @@ package org.khorum.oss.konstellation.metaDsl.annotation
 
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.khorum.oss.konstellation.metaDsl.annotation.defaults.DefaultEnum
 import org.khorum.oss.konstellation.metaDsl.annotation.defaults.DefaultValue
 import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.DefaultState
 import org.khorum.oss.konstellation.metaDsl.annotation.defaults.state.standard.DefaultFalse
@@ -133,6 +134,29 @@ class AnnotationDefaultsTest {
         @Test
         fun `wrapInFunction has a default`() {
             assertDefault(PrivateDslProperty::class, "wrapInFunction", true)
+        }
+    }
+
+    @Nested
+    inner class DefaultEnumAnnotation {
+        @Test
+        fun `has expected parameters`() {
+            assertParameterNames(DefaultEnum::class, listOf("value", "packageName", "className"))
+        }
+
+        @Test
+        fun `value is required`() {
+            assertRequired(DefaultEnum::class, "value")
+        }
+
+        @Test
+        fun `packageName has a default`() {
+            assertDefault(DefaultEnum::class, "packageName", "")
+        }
+
+        @Test
+        fun `className has a default`() {
+            assertDefault(DefaultEnum::class, "className", "")
         }
     }
 
